@@ -1,0 +1,26 @@
+0. Project Overview:
+   This is a simple English-to-Spanish Translator using TensorFlow with Keras API
+
+1. Preprocessing for seq2seq: (Stored in preprocessing.py)
+   1.1. Create vocabulary sets for input(English) and target(Spanish)
+   1.2. Derived Information: the total number of unique word tokens, the maximum sentence length
+   1.3. Mark the start and end of each sentence in the target samples
+     span-eng.txt content:
+     We'll see.	Después veremos.
+     We'll see.	Ya veremos.
+     We'll try.	Lo intentaremos.
+     We've won!	¡Hemos ganado!
+     Well done.	Bien hecho.
+     What's up?	¿Qué hay?
+     Who cares?	¿A quién le importa?
+     Who drove?	¿Quién condujo?
+     Who drove?	¿Quién conducía?
+     Who is he?	¿Quién es él?
+     Who is it?	¿Quién es?
+
+2. Training Setup
+  2.1. For each sentence, create an one-hot vectors for each token (using NumPy)
+  2.2 Build features dictionary & reverse features dictionary
+      Translate vectors and actual words
+      2.2.1. feature dictionary & reverse features dictionary for English
+      2.2.2. feature dictionary & reverse features dictionary for Spanish
