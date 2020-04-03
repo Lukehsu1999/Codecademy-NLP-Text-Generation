@@ -1,0 +1,35 @@
+LSTM Background Knowledge
+  1. Early neural networks models were not designed to handle temporal sequence of data, therefore they are not good at handling human language tasks
+  2. RNN (Recurrent Neural Network):
+     2.1. Neural Network specifically designed to process inputs in a temporal order and update the future based on the past,
+          as well as process sequences of arbitrary length
+     2.2. RNNs are often used to solve speech recognition
+     2.3. Feature: integrate a loop into the connections between neurons, allowing information to persist across a chain of neurons
+     2.4. When the chain of neurons in an RNN is "rolled out", it becomes easier to see that these models are made up of many copies of the same neuron,
+          each passing information to its succesor
+          2.4.1. input layer: the first neuron
+          2.4.2. hidden layer: the neurons in between
+          2.4.3. output layer: the last neuron
+          The chain structure of RNN reveals a clear temporal ordering -- just like human language
+  3. Long-term Dependencies
+    3.1. LSTM: the long short-term memory network is a RNN variant
+    3.2. Idea: When attempting to predict the next word in a conversation, words that were mentioned recently provide enough information to make a strong guess
+    3.3. The long-term dependency problem: as the gap between context and the word to predict grows, standard RNNs become less and less accurate
+  4. Long Short-term Memory Networks
+    4.1. Basic Structure
+         (Output at timestep t-1 from previos neuron) + (input at timestep t) -> activation function
+         activation function -> (output at timestep t) + (output to the successor neuron)
+    4.2. Main Feature
+         Transformed input data is combined by adding results to State (cell memory), which is represented as vectors
+         There are two states that are produced for the first step in the sequence and then carry over as subsequent inputs are processed:
+         4.2.1. cell state
+                carries information through the network as we process a sequence of inputs
+                at each timestep, the updated input is appended to the cell state by a gate,
+                which controls how much of the input should be included in the final product of the cell state.
+                This final product, is called a hidden state
+         4.2.2. hidden state
+                hidden state is fed as input to the next neural network layer at the next timestep
+         The persistence of the majority of a cell state across data transformations,
+         combined with incremental additions controlled by the gates,
+         allows for important information from the initial input data to be maintained in the neural network.
+         This allows for information from far earlier in the input data to be used in decisions at any point in the model
