@@ -1,0 +1,13 @@
+1. seq2seq model is one of the most common neural models used for text generation
+2. seq2seq is a type of encoder-decoder model
+   2.1.Encoder
+       accepts language input
+       the output matrix of the encoder is discarded, but its state is preserved as a vector
+   2.2.Decoder
+       takes the encoder's final state as its initial state
+       use "teacher forcing" to train the decoder to predict the following text in a target sequence given the previos text
+3. seq2seq uses RNN like LSTM in order to generate output, token by token
+4. seq2seq applications
+   machine translation
+   text summary generation
+   chatbots
