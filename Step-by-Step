@@ -24,3 +24,8 @@
       Translate vectors and actual words
       2.2.1. feature dictionary & reverse features dictionary for English
       2.2.2. feature dictionary & reverse features dictionary for Spanish
+  2.3. Keras will fit the seq2seq model using 
+      2.3.1. the encoder input data
+      2.3.2. the decoder input data
+      2.3.3. the decoder target data
+      "Teacher Forcing": we have a Spanish input token from the previous timestep to help train the model for the current timestep's target token
