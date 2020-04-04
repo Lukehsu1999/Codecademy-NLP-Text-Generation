@@ -33,10 +33,13 @@ def decode_sequence(test_input):
   while not stop_condition:
     # Run the decoder model to get possible 
     # output tokens (with probabilities) & states
-    
+    output_tokens, new_decoder_hidden_state, new_decoder_cell_state = decoder_model.predict(
+      [target_seq] + decoder_states_value)
 
     # Choose token with highest probability
-    sampled_token = ""
+    sampled_token_index = np.argmax(output_tokens[0, -1, :])
+    sampled_token = reverse_target_features_dict[sampled_token_index]
+    decoded_sentence += " " + sampled_token
 
     # Exit condition: either hit max length
     # or find stop token.
@@ -44,14 +47,15 @@ def decode_sequence(test_input):
       stop_condition = True
 
     # Update the target sequence (of length 1).
-    
+    target_seq = np.zeros((1, 1, num_decoder_tokens))
+    target_seq[0, 0, sampled_token_index] = 1.
 
     # Update states
-    
+    decoder_states_value = [new_decoder_hidden_state, new_decoder_cell_state]
 
   return decoded_sentence
 
-for seq_index in range(10):
+for seq_index in range(11):
   test_input = encoder_input_data[seq_index: seq_index + 1]
   decoded_sentence = decode_sequence(test_input)
   print('-')
