@@ -29,3 +29,49 @@
       2.3.2. the decoder input data
       2.3.3. the decoder target data
       "Teacher Forcing": we have a Spanish input token from the previous timestep to help train the model for the current timestep's target token
+      
+3. Encoder Training Setup (training.py)
+   3.1. Encoder's two layer (from Keras)
+         3.1.1. input layer: defines a matrix to hold all the one-hot vectors that will be fed to the model
+         3.1.2. LSTM layer
+
+4. Decoder Training Setup
+   4.1. Decoder's two layer
+         4.1.1. input layer : pass in state data from encoder and decoder input
+         4.1.2. LSTM layer
+   4.2. the final activation layer using the Softmax function will give us the probability distribution
+
+5. Build & Train seq2seq (when we know the target sequence)
+   5.1. Define the seq2seq model with Keras
+   5.2. To train, we need
+         5.2.1. an optimizer (RMSprop) to help minimize error rate
+         5.2.2. a loss function to determine error rate
+   5.3. parameters for fit()
+         5.3.1. batch size
+         5.3.2. number of epochs or cycles of training
+         5.3.3. validation split
+
+6. Testing Setup
+   6.1. Redefine seq2seq architecture (if we don't know the target)
+        Need a model that will decode step-by-step instead of using teacher forcing
+   6.2. Build encoder model with encoder input and placeholders for encoder's output states
+   6.3. need placeholders for decoder's input state
+        we pass the encoder's final hidden state to the decoder, sample a token,
+        and get the updated hidden state back.
+        THen we'll be able to pass the updated hidden state back into the network
+   6.4. using the decoder LSTM and decoder dense layer (with activation function) trained earlier,
+        create new decoder states and outputs
+   6.5. Set up decoder model
+ 
+7. Test function
+   7.1. Goal
+         7.1.1. accepts a NumPy matrix representing the test English sentence input
+         7.1.2. uses the encoder and decoder to generate Spanish output
+   7.2. Translation
+         7.2.1. Decode the sentence word by word using the output state that we retrieved from the encoder
+                update the decoder hidden state after each word
+                so we use previosly decoded words to help decode new ones
+         
+         
+         
+         
